@@ -1,0 +1,284 @@
+{
+  "version": "2026.06",
+  "notes": "Watchlist for the State of CLAUDE.md weekly skill. Each entry defines a source, how to fetch it, and how to treat its output. The skill reads this file at the start of every run. To propose a change, open a GitHub Discussion tagged 'watchlist'.",
+
+  "watchlist": [
+
+    {
+      "id": "anthropic-official-docs",
+      "name": "Anthropic Claude Code Official Docs — Best Practices",
+      "tier": 1,
+      "status": "active",
+      "method": "fetch_page",
+      "urls": {
+        "primary": "https://code.claude.com/docs/en/best-practices",
+        "index": "https://code.claude.com/docs/llms.txt"
+      },
+      "decay_exempt": true,
+      "relevance_filter": ["CLAUDE.md", "hooks", "skills", "subagents", "context", "permissions", "plan mode"],
+      "notes": "Ground truth for ALL technical claims. Contradiction of this source forces EXCLUDE on any item, regardless of score. Check the index URL for newly published pages on each run and add them to supplementary_pages.",
+      "supplementary_pages": [
+        "https://code.claude.com/docs/en/hooks",
+        "https://code.claude.com/docs/en/skills",
+        "https://code.claude.com/docs/en/sub-agents",
+        "https://code.claude.com/docs/en/memory",
+        "https://code.claude.com/docs/en/permissions",
+        "https://code.claude.com/docs/en/interactive-mode"
+      ],
+      "last_checked": "2026-06-03",
+      "last_changed": "2026-06-03"
+    },
+
+    {
+      "id": "simon-willison",
+      "name": "Simon Willison — claude-code tag",
+      "tier": 2,
+      "status": "active",
+      "method": "fetch_page",
+      "urls": {
+        "primary": "https://simonwillison.net/tags/claude-code/",
+        "rss": "https://simonwillison.net/tags/claude-code/rss/"
+      },
+      "decay_exempt": false,
+      "relevance_filter": ["CLAUDE.md", "hooks", "workflow", "context", "skill", "agent", "prompt"],
+      "notes": "High independence — Willison forms views from direct use, rarely from secondary sources. Treat observations about what works/doesn't as strong Tier 2 signal even without explicit sourcing.",
+      "last_checked": "2026-06-03",
+      "last_changed": "2026-06-03"
+    },
+
+    {
+      "id": "forrest-chang-karpathy-skills",
+      "name": "forrestchang/andrej-karpathy-skills — GitHub repo",
+      "tier": 2,
+      "status": "active",
+      "method": "github_api",
+      "urls": {
+        "primary": "https://github.com/forrestchang/andrej-karpathy-skills",
+        "raw_claude_md": "https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md",
+        "commits_api": "https://api.github.com/repos/forrestchang/andrej-karpathy-skills/commits?path=CLAUDE.md&per_page=5"
+      },
+      "decay_exempt": false,
+      "relevance_filter": ["CLAUDE.md"],
+      "notes": "Monitor for commits to CLAUDE.md specifically. The four core rules (Think Before Coding / Simplicity First / Surgical Changes / Goal-Driven Execution) are treated as perennially validated — only flag if they are substantively changed or removed. New additions are candidates for evaluation.",
+      "github_signal": {
+        "stars_approx": 54000,
+        "tier_multiplier": 1.2
+      },
+      "last_checked": "2026-06-03",
+      "last_changed": null
+    },
+
+    {
+      "id": "marmelab-blog",
+      "name": "Marmelab Blog — AI tag",
+      "tier": 2,
+      "status": "active",
+      "method": "fetch_page",
+      "urls": {
+        "primary": "https://marmelab.com/blog/",
+        "rss": "https://marmelab.com/rss.xml"
+      },
+      "decay_exempt": false,
+      "relevance_filter": ["claude", "claude code", "CLAUDE.md", "AI coding", "agentic"],
+      "notes": "Filter RSS for Claude Code-relevant posts only. Marmelab writes from sustained daily use across multiple projects — treat workflow observations as high-quality Tier 2. Their April 2026 piece is the baseline; look for updates and new posts.",
+      "last_checked": "2026-06-03",
+      "last_changed": "2026-06-03"
+    },
+
+    {
+      "id": "peter-steinberger",
+      "name": "Peter Steinberger — Blog and Newsletter",
+      "tier": 2,
+      "status": "active",
+      "method": "fetch_page",
+      "urls": {
+        "primary": "https://steipete.me",
+        "newsletter": "https://steipete.substack.com"
+      },
+      "decay_exempt": false,
+      "relevance_filter": ["claude", "claude code", "CLAUDE.md", "AI coding", "agent", "workflow"],
+      "notes": "PSPDFKit/OpenClaw founder. Strong signal on AI software development workflow from a shipping-product perspective. Check both blog and Substack — content sometimes appears on one and not the other. In 2026-06-03 run, output was primarily about Trimmy tool and mcporter — no direct CLAUDE.md guidance found.",
+      "last_checked": "2026-06-03",
+      "last_changed": null
+    },
+
+    {
+      "id": "addy-osmani",
+      "name": "Addy Osmani — Blog and Bluesky",
+      "tier": 2,
+      "status": "active",
+      "method": "fetch_page",
+      "urls": {
+        "primary": "https://addyosmani.com/blog/",
+        "bluesky": "https://bsky.app/profile/addyosmani.bsky.social"
+      },
+      "bluesky_handle": "addyosmani.bsky.social",
+      "decay_exempt": false,
+      "relevance_filter": ["claude", "claude code", "CLAUDE.md", "AI agent", "coding agent", "parallel"],
+      "notes": "Source of the 'human bottleneck as feature' observation re: parallel agents. Check blog for long-form; Bluesky for shorter observations that may not make it to a post.",
+      "last_checked": "2026-06-03",
+      "last_changed": "2026-06-03"
+    },
+
+    {
+      "id": "matt-pocock",
+      "name": "Matt Pocock — Site and YouTube",
+      "tier": 2,
+      "status": "active",
+      "method": "fetch_page",
+      "urls": {
+        "primary": "https://www.mattpocock.com/",
+        "youtube_search": "https://www.youtube.com/@mattpocockuk/videos"
+      },
+      "decay_exempt": false,
+      "relevance_filter": ["claude code", "CLAUDE.md", "skills", "reject vibe coding", "agent"],
+      "notes": "Creator of the reject-vibe-coding skills approach and TDD/engineering-constraints pattern for Claude Code. YouTube titles are often enough to identify relevance without watching; fetch video descriptions for detail. Skills repo hit 68k stars in 90 days — high signal source.",
+      "last_checked": "2026-06-03",
+      "last_changed": "2026-06-03"
+    },
+
+    {
+      "id": "obra-superpowers",
+      "name": "obra/superpowers — GitHub repo",
+      "tier": 2,
+      "status": "active",
+      "method": "github_api",
+      "urls": {
+        "primary": "https://github.com/obra/superpowers",
+        "commits_api": "https://api.github.com/repos/obra/superpowers/commits?per_page=10",
+        "releases_api": "https://api.github.com/repos/obra/superpowers/releases?per_page=5"
+      },
+      "decay_exempt": false,
+      "relevance_filter": ["CLAUDE.md", "skills", "workflow", "tdd", "review"],
+      "notes": "Monitor README and skill file changes. This repo reflects what's being validated in practice by a large user base (150k stars). Patterns that survive across versions are stronger signal than new additions.",
+      "github_signal": {
+        "stars_approx": 150000,
+        "tier_multiplier": 1.2
+      },
+      "last_checked": "2026-06-03",
+      "last_changed": "2026-06-03"
+    },
+
+    {
+      "id": "nick-nisi",
+      "name": "Nick Nisi — nicknisi.com",
+      "tier": 2,
+      "status": "active",
+      "method": "fetch_page",
+      "urls": {
+        "primary": "https://nicknisi.com/posts/",
+        "rss": "https://nicknisi.com/rss.xml"
+      },
+      "decay_exempt": false,
+      "relevance_filter": ["claude", "claude code", "CLAUDE.md", "skills"],
+      "notes": "Has written specifically about Claude Skills. Smaller volume but high relevance when he does publish on this topic.",
+      "last_checked": "2026-06-03",
+      "last_changed": "2026-06-03"
+    },
+
+    {
+      "id": "boris-cherny",
+      "name": "Boris Cherny — Blog",
+      "tier": 3,
+      "status": "inactive",
+      "method": "fetch_page",
+      "urls": {
+        "primary": "https://borischerny.com"
+      },
+      "decay_exempt": false,
+      "relevance_filter": ["claude", "claude code", "CLAUDE.md", "AI coding", "agent"],
+      "notes": "Downgraded from tier3-pending to inactive after 2026-06-03 run: borischerny.com last published in June 2024; blog is dormant. Boris Cherny is active on third-party platforms (podcasts, interviews) but not on his personal blog. Re-enable if blog resumes.",
+      "last_checked": "2026-06-03",
+      "last_changed": null
+    },
+
+    {
+      "id": "hacker-news",
+      "name": "Hacker News — claude-code and CLAUDE.md searches",
+      "tier": 3,
+      "status": "active",
+      "method": "search_api",
+      "urls": {
+        "search_api": "https://hn.algolia.com/api/v1/search",
+        "query_1": "https://hn.algolia.com/api/v1/search?query=CLAUDE.md&tags=story&numericFilters=points%3E50",
+        "query_2": "https://hn.algolia.com/api/v1/search?query=claude+code+workflow&tags=story&numericFilters=points%3E50"
+      },
+      "decay_exempt": false,
+      "relevance_filter": ["CLAUDE.md", "claude code", "hooks", "skills", "agentic coding"],
+      "min_score_threshold": 50,
+      "notes": "Use Algolia HN search API — free, no auth required. Filter for stories (not comments) above the score threshold. High-scoring HN posts about Claude Code are reliable corroborating evidence for Tier 2 claims. Also watch top comments on relevant posts for emerging patterns.",
+      "last_checked": "2026-06-03",
+      "last_changed": "2026-06-03"
+    },
+
+    {
+      "id": "reddit-claudeai",
+      "name": "Reddit r/ClaudeAI — top weekly posts",
+      "tier": 3,
+      "status": "removed",
+      "method": "fetch_page",
+      "urls": {
+        "primary": "https://www.reddit.com/r/ClaudeAI/top.json?t=week&limit=25"
+      },
+      "decay_exempt": false,
+      "relevance_filter": ["CLAUDE.md", "claude code", "hooks", "workflow", "tips", "best practices"],
+      "notes": "Removed after first run — Reddit blocks automated user agents consistently. Signal-to-noise was also low. Re-enable if authenticated MCP access becomes available.",
+      "last_checked": null,
+      "last_changed": null
+    },
+
+    {
+      "id": "bluesky-developer-community",
+      "name": "Bluesky — Claude Code developer community",
+      "tier": 3,
+      "status": "best-effort",
+      "method": "bluesky_api",
+      "urls": {
+        "search_api": "https://public.api.bsky.app/xrpc/app.bsky.feed.searchPosts",
+        "query_1": "https://public.api.bsky.app/xrpc/app.bsky.feed.searchPosts?q=CLAUDE.md&limit=25",
+        "query_2": "https://public.api.bsky.app/xrpc/app.bsky.feed.searchPosts?q=%22claude+code%22+workflow&limit=25"
+      },
+      "decay_exempt": false,
+      "relevance_filter": ["CLAUDE.md", "claude code", "hooks", "skills", "workflow"],
+      "notes": "Best-effort: attempt on each run, log quietly if unreachable, do not abort. The searchPosts endpoint now requires auth intermittently. Primary value is catching Tier 2 sources (Willison, Osmani, etc.) posting here before their blog — cross-reference authors against bluesky_handle fields in Tier 2 entries. 2026-06-03 run: 403 Forbidden from sandbox IP.",
+      "last_checked": "2026-06-03",
+      "last_changed": null
+    },
+
+    {
+      "id": "knightli",
+      "name": "knightli.com — Claude Code coverage",
+      "tier": 3,
+      "status": "active",
+      "method": "fetch_page",
+      "urls": {
+        "primary": "https://knightli.com/en/tags/claude-code/",
+        "rss": "https://knightli.com/en/index.xml"
+      },
+      "decay_exempt": false,
+      "relevance_filter": ["CLAUDE.md", "claude code", "hooks", "skills", "workflow"],
+      "notes": "Has produced several strong synthesis posts on Claude Code including the Karpathy CLAUDE.md analysis. Treat as Tier 3 but with relatively high signal quality for that tier — useful for corroboration and for surfacing community discussions worth investigating.",
+      "last_checked": "2026-06-03",
+      "last_changed": "2026-06-03"
+    }
+
+  ],
+
+  "verification_targets": {
+    "notes": "These are the official reference pages the verification subagent checks ALL technical claims against. They are not content sources — they are accuracy validators.",
+    "command_reference": "https://code.claude.com/docs/en/interactive-mode",
+    "hooks_reference": "https://code.claude.com/docs/en/hooks",
+    "settings_reference": "https://code.claude.com/docs/en/settings",
+    "skills_reference": "https://code.claude.com/docs/en/skills",
+    "permissions_reference": "https://code.claude.com/docs/en/permissions"
+  },
+
+  "tunable_parameters": {
+    "community_upvote_threshold": 5,
+    "hn_minimum_score": 50,
+    "cross_validation_minimum_for_in": 2,
+    "recency_window_full_days": 7,
+    "recency_window_standard_days": 30,
+    "provisional_tier2_validation_runs": 1
+  }
+}

@@ -1,0 +1,75 @@
+[
+  {
+    "edition": 1,
+    "run_id": "2026-06-04",
+    "date": "2026-06-04",
+    "summary": "First published edition. Added verified guidance on checkpoint recovery, compaction survival, subagent scoping, turn-gating hooks, fresh-context review, and permission enforcement. One plausible cache claim was excluded for failing verification.",
+    "sources_checked": 14,
+    "sources_unreachable": ["reddit-claudeai", "bluesky-developer-community"],
+    "candidates_evaluated": 28,
+    "contested": 0,
+    "changes": [
+      {
+        "type": "added",
+        "item": "Recover instead of fighting a bad path: /rewind (or double-Esc on an empty prompt) rolls back code and/or conversation; /btw asks throwaway questions that never enter history.",
+        "rationale": "Both commands and the Esc-Esc shortcut are confirmed verbatim in the official interactive-mode and checkpointing docs.",
+        "sources": ["anthropic-official-docs"]
+      },
+      {
+        "type": "added",
+        "item": "Project-root CLAUDE.md re-injects after /compact; nested CLAUDE.md files and chat-only instructions do not — keep must-survive rules in the root file.",
+        "rationale": "Stated explicitly in the official memory documentation.",
+        "sources": ["anthropic-official-docs"]
+      },
+      {
+        "type": "added",
+        "item": "Subagents start blind to your session — scope them narrowly; the built-in Explore and Plan agents skip CLAUDE.md, so restate any rule they must follow in the delegation prompt.",
+        "rationale": "Confirmed in the official sub-agents documentation.",
+        "sources": ["anthropic-official-docs"]
+      },
+      {
+        "type": "added",
+        "item": "A Stop hook can block a turn from ending until your check script succeeds — deterministic where CLAUDE.md is only advisory.",
+        "rationale": "Confirmed in the official hooks documentation.",
+        "sources": ["anthropic-official-docs"]
+      },
+      {
+        "type": "added",
+        "item": "Before declaring done, have a fresh subagent review the diff against the requirements; tell it to flag only gaps affecting correctness or stated requirements, or it will invent work.",
+        "rationale": "Reflects the review-subagent guidance in the official best-practices documentation.",
+        "sources": ["anthropic-official-docs"]
+      },
+      {
+        "type": "added",
+        "item": "Permissions are enforced by Claude Code, not the model: a deny rule or PreToolUse hook blocks an action regardless of what CLAUDE.md or the prompt says.",
+        "rationale": "Confirmed in the official permissions documentation.",
+        "sources": ["anthropic-official-docs"]
+      },
+      {
+        "type": "added",
+        "item": "Block-level HTML comments are stripped before CLAUDE.md loads — free for maintainer notes, unlike prose and '#' lines which consume tokens.",
+        "rationale": "Confirmed in the official memory documentation.",
+        "sources": ["anthropic-official-docs"]
+      },
+      {
+        "type": "added",
+        "item": "Plan mode is worth it for multi-file or uncertain-scope work, but skip it when you could describe the diff in one sentence.",
+        "rationale": "Reflects the planning guidance in the official best-practices documentation.",
+        "sources": ["anthropic-official-docs"]
+      },
+      {
+        "type": "modified",
+        "item": "Line-budget guidance now carries a concrete test: for each line ask 'would removing this cause a mistake?' If not, cut it. Target aligned to under 200 lines.",
+        "rationale": "Matches the official memory docs (under 200 lines; bloated files reduce adherence), corroborated by community sources.",
+        "sources": ["anthropic-official-docs", "knightli", "hacker-news"]
+      }
+    ],
+    "excluded": 1,
+    "excluded_detail": [
+      {
+        "item": "Put stable rules at the top of CLAUDE.md and volatile notes at the bottom to maximise prompt-cache hits.",
+        "reason": "Not stated in the official docs — prompt-cache hit-rate ordering is community inference, not documented Claude Code behaviour. Failed the accuracy gate."
+      }
+    ]
+  }
+]
