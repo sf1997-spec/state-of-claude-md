@@ -3,6 +3,10 @@
 A curated **CLAUDE.md** best-practices template for Claude Code — distilled from
 what practitioners are learning, and refreshed periodically.
 
+**Live site → [state-of-claude-md.lovable.app](https://state-of-claude-md.lovable.app/)** —
+read the current edition, what changed, the source watchlist, and a short guide to
+Claude Code (MCP, hooks, plan mode, agentic coding).
+
 ## Use it
 
 Copy [`CLAUDE.md`](./CLAUDE.md) into your project root, fill in the **Project
