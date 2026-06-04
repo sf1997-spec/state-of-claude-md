@@ -1,12 +1,13 @@
-# CLAUDE.md — Universal Best-Practice Template
-# v2026.06b | Synthesised from Anthropic official docs, Karpathy/Forrest Chang,
-# Marmelab, SmartScope, JD Hodges, and community research.
+ # CLAUDE.md — Universal Best-Practice Template
+# Edition 2026-06-04 | Synthesised from Anthropic's official docs and a watchlist of
+# practitioner sources, with every technical claim verified against the docs.
 #
 # HOW TO USE
 # 1. Keep §§ 1–4 (Core Behavioral Rules) verbatim — they are universal.
 # 2. Fill in §§ Project Context with YOUR project specifics.
 # 3. Delete placeholder sections you don't need.
-# 4. Target: under 150 lines total. Every line costs context tokens.
+# 4. Target under 200 lines. Every line costs tokens, and a bloated file gets
+#    ignored — for each line ask "would removing this cause a mistake?" If not, cut.
 # 5. Use @path imports (bottom) to reference additional context files. Note:
 #    imports load at session start and still consume tokens — they aid
 #    organisation and reuse, not context reduction.
@@ -16,6 +17,8 @@
 #    overrides (add to .gitignore).
 # 8. Treat this file like code: prune it when things go wrong,
 #    update it after every session retro.
+# 9. <!-- HTML comments --> are stripped before this file loads — free for
+#    maintainer notes; the '#' lines and prose above are not, so keep them lean.
 
 ---
 
@@ -70,14 +73,22 @@
 
 - Use plan mode for anything that touches multiple files or has uncertain scope.
   Explore → plan → implement → commit. (Activate via Shift+Tab in the CLI.)
+  But if you could describe the diff in one sentence, skip the plan — it's overhead.
 - `/clear` between unrelated tasks. Long sessions with irrelevant context degrade quality.
 - If you've been corrected twice on the same issue: stop, `/clear`, restart with a
   better prompt that incorporates what you learned. Persisting past two failures
   is slower than resetting.
+- Recover instead of fighting a bad path: `/rewind` (or double-`Esc` on an empty
+  prompt) rolls back code and/or conversation to a checkpoint. Use `/btw` for
+  throwaway questions you don't want entering the session's history.
 - `/compact Focus on [X]` — be explicit about what to preserve; don't let
-  auto-compaction decide unguided.
-- Use subagents for exploration that reads many files. The research stays in a
-  separate context window and won't pollute the main session.
+  auto-compaction decide unguided. The project-root CLAUDE.md re-injects after
+  /compact; nested CLAUDE.md files and chat-only instructions don't, so keep
+  must-survive rules in the root file.
+- Use subagents for exploration that reads many files — the research stays in a
+  separate context window and won't pollute the main session. Each subagent starts
+  blind to your session, so scope it narrowly; the built-in Explore and Plan agents
+  also skip CLAUDE.md, so restate any rule they must follow in the delegation prompt.
 - Don't run more parallel agents than you can review. Throughput gains are real;
   so is error compounding. At human pace, mistakes surface slowly. With many
   agents running unsupervised, small errors compound faster than you can catch them.
@@ -91,6 +102,11 @@
 - Show evidence (test output, exact command + result) rather than asserting success.
 - IMPORTANT: Hooks (not this file) are the right place for verification that must
   happen every single time. CLAUDE.md instructions are advisory; hooks are deterministic.
+- For a check that must pass before a turn ends, a Stop hook can block the turn from
+  ending until your script succeeds — deterministic where this file is only advisory.
+- Before declaring done, have a fresh subagent review the diff against the
+  requirements — it sees only the change, not the reasoning behind it. Tell it to flag
+  only gaps affecting correctness or stated requirements, or it will invent work.
 
 ## Safety Rails
 
@@ -98,6 +114,9 @@
 - IMPORTANT: Never suppress errors to make a build pass — fix root causes.
 - IMPORTANT: Never touch files outside the task scope without being asked.
 - File-level protection belongs in settings.json → permissions.deny, not here.
+- Permissions are enforced by Claude Code, not the model: a deny rule or a PreToolUse
+  hook blocks an action no matter what this file or your prompt says. Use them for
+  hard boundaries; use this file for guidance.
 - Run /security-review periodically. It won't catch everything — that's still your job.
 
 ## Decision Log
