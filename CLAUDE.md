@@ -1,5 +1,5 @@
  # CLAUDE.md — Universal Best-Practice Template
-# Edition 2026-06-04 | Synthesised from Anthropic's official docs and a watchlist of
+# Edition 2026-06-08 | Synthesised from Anthropic's official docs and a watchlist of
 # practitioner sources, with every technical claim verified against the docs.
 #
 # HOW TO USE
@@ -15,8 +15,9 @@
 #    hooks, env vars. CLAUDE.md is advisory; settings.json is deterministic.
 # 7. Commit to git so your team benefits. Use CLAUDE.local.md for personal
 #    overrides (add to .gitignore).
-# 8. Treat this file like code: prune it when things go wrong,
-#    update it after every session retro.
+# 8. Treat this file like code: prune when things go wrong; add a line the moment you'd
+#    otherwise repeat yourself — Claude makes the same mistake twice, a review catches
+#    what it should've known, or a new teammate would need the same context.
 # 9. <!-- HTML comments --> are stripped before this file loads — free for
 #    maintainer notes; the '#' lines and prose above are not, so keep them lean.
 
@@ -94,6 +95,9 @@
   agents running unsupervised, small errors compound faster than you can catch them.
 - Sessions start with ~20k tokens already consumed (system prompt + tools + this file)
   before you type anything. Treat context as a finite, precious resource.
+- Growing too long? Split rules into `.claude/rules/*.md`. A rule with a `paths:` glob
+  loads only when Claude reads a matching file — modular, and you don't pay context for
+  it until it's relevant.
 
 ## Verification Mandate
 
@@ -102,8 +106,10 @@
 - Show evidence (test output, exact command + result) rather than asserting success.
 - IMPORTANT: Hooks (not this file) are the right place for verification that must
   happen every single time. CLAUDE.md instructions are advisory; hooks are deterministic.
-- For a check that must pass before a turn ends, a Stop hook can block the turn from
-  ending until your script succeeds — deterministic where this file is only advisory.
+- For a check that must pass before a turn ends, a Stop hook blocks the turn until your
+  script succeeds (Claude Code ends it after 8 consecutive blocks); or set a `/goal`
+  condition and a separate evaluator keeps Claude working until it holds. Both let an
+  unattended run finish honestly — deterministic where this file is only advisory.
 - Before declaring done, have a fresh subagent review the diff against the
   requirements — it sees only the change, not the reasoning behind it. Tell it to flag
   only gaps affecting correctness or stated requirements, or it will invent work.
