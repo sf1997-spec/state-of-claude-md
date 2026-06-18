@@ -1,5 +1,57 @@
 [
   {
+    "edition": 3,
+    "run_id": "2026-06-18",
+    "date": "2026-06-18",
+    "summary": "Four docs-verified changes driven by new official material: documents the on-by-default auto-memory system, AGENTS.md interop, and compaction instructions in CLAUDE.md; corrects the subagent CLAUDE.md-loading claim (only Explore/Plan skip it). Practitioner sources quiet or corroborating.",
+    "sources_checked": 12,
+    "sources_unreachable": ["bluesky-developer-community"],
+    "candidates_evaluated": 33,
+    "contested": 0,
+    "changes": [
+      {
+        "type": "modified",
+        "item": "Subagent CLAUDE.md loading: most subagents (custom and built-in) inherit your full CLAUDE.md/memory hierarchy; only the built-in Explore and Plan agents skip it (and git status) to stay fast — restate any rule they must follow in the delegation prompt.",
+        "rationale": "Accuracy correction. The sub-agents docs now state this precisely; the prior edition's 'each subagent starts blind / Explore and Plan also skip CLAUDE.md' framing was overbroad and implied all subagents skip it.",
+        "sources": ["anthropic-official-docs"]
+      },
+      {
+        "type": "added",
+        "item": "Auto memory (on by default, v2.1.59+) is a second memory system Claude maintains itself in ~/.claude/projects/<project>/memory/; the first 200 lines (or 25KB) of MEMORY.md load each session. It complements the CLAUDE.md you curate; toggle via /memory.",
+        "rationale": "Newly documented, on-by-default mechanism distinct from CLAUDE.md — every user now has it, so the template should name it.",
+        "sources": ["anthropic-official-docs"]
+      },
+      {
+        "type": "added",
+        "item": "Claude Code reads CLAUDE.md, not AGENTS.md. If your repo already uses AGENTS.md, import it (@AGENTS.md) or symlink it (ln -s AGENTS.md CLAUDE.md) rather than maintaining two files.",
+        "rationale": "New interop guidance in the memory docs; common real situation as AGENTS.md adoption grows across agent tools.",
+        "sources": ["anthropic-official-docs"]
+      },
+      {
+        "type": "modified",
+        "item": "You can bake compaction behaviour into CLAUDE.md itself (e.g. 'When compacting, always preserve the list of modified files and any test commands') so critical context survives every summarisation.",
+        "rationale": "New best-practices guidance; extends the existing /compact line beyond per-invocation '/compact Focus on [X]'.",
+        "sources": ["anthropic-official-docs"]
+      }
+    ],
+    "excluded": 3,
+    "excluded_detail": [
+      {
+        "item": "ENABLE_PROMPT_CACHING_1H=1 enables a 1-hour prompt-cache TTL for long sessions (knightli).",
+        "reason": "Accuracy gate: env var not found anywhere in the official docs."
+      },
+      {
+        "item": "Automatic compaction triggers at ~95% of the context window (Marmelab).",
+        "reason": "Accuracy gate: docs describe compaction firing 'when context approaches the limit' with no numeric threshold; the 95% figure is unverifiable."
+      },
+      {
+        "item": "Keep stable rules at the top of CLAUDE.md for prompt-cache hits (knightli).",
+        "reason": "Same plausible-but-undocumented cache-ordering claim cut in a prior edition; still not in the docs. Stays excluded."
+      }
+    ],
+    "notes": "Docs-led cycle. The official docs shipped substantial new material since 2026-06-08; the accuracy gate verified 9 of 11 shortlisted technical claims verbatim and failed 2 (above). Verified-but-held (too granular or in-the-weeds for a universal template): CLAUDE.md is delivered as a user message after the system prompt + --append-system-prompt (provisional); custom commands merged into skills; path-scoped skills (paths frontmatter); /goal condition fitness criteria; InstructionsLoaded hook; hook context phrased as factual statements; $schema for settings.json. Practitioner sources: Simon Willison, Peter Steinberger (joined OpenAI; blog dormant, substack 404), forrestchang/karpathy CLAUDE.md (unchanged since 2026-01-27), Matt Pocock — no new in-window guidance. Held Tier-2 single-source items: Addy Osmani (intent ledger / tier review by blast radius / agents rewrite test assertions), obra/superpowers v6.0.0 (name the model when delegating, pass work as files, read-only uncoachable reviewers, plan Global Constraints + Interfaces, task right-sizing, extended-thinking keyword gotcha, vendor-neutral phrasing), Nick Nisi (attention is the multi-agent bottleneck). Tier-3 held: Stanford CS336 CLAUDE.md specimen (should/should-not + Good/Bad examples), 'Daily Driver' blog. Bluesky unreachable (403)."
+  },
+  {
     "edition": 2,
     "run_id": "2026-06-08",
     "date": "2026-06-08",

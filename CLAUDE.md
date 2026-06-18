@@ -1,5 +1,5 @@
  # CLAUDE.md — Universal Best-Practice Template
-# Edition 2026-06-08 | Synthesised from Anthropic's official docs and a watchlist of
+# Edition 2026-06-18 | Synthesised from Anthropic's official docs and a watchlist of
 # practitioner sources, with every technical claim verified against the docs.
 #
 # HOW TO USE
@@ -83,13 +83,16 @@
   prompt) rolls back code and/or conversation to a checkpoint. Use `/btw` for
   throwaway questions you don't want entering the session's history.
 - `/compact Focus on [X]` — be explicit about what to preserve; don't let
-  auto-compaction decide unguided. The project-root CLAUDE.md re-injects after
-  /compact; nested CLAUDE.md files and chat-only instructions don't, so keep
-  must-survive rules in the root file.
+  auto-compaction decide unguided. You can also bake this into CLAUDE.md (e.g. "When
+  compacting, always preserve the list of modified files and any test commands") so it
+  survives every summarisation. The project-root CLAUDE.md re-injects after /compact;
+  nested CLAUDE.md files and chat-only instructions don't, so keep must-survive rules in
+  the root file.
 - Use subagents for exploration that reads many files — the research stays in a
-  separate context window and won't pollute the main session. Each subagent starts
-  blind to your session, so scope it narrowly; the built-in Explore and Plan agents
-  also skip CLAUDE.md, so restate any rule they must follow in the delegation prompt.
+  separate context window and won't pollute the main session. Scope each one narrowly.
+  Most subagents (custom and built-in) inherit your full CLAUDE.md/memory hierarchy, but
+  the built-in Explore and Plan agents skip it (and git status) to stay fast — so restate
+  any rule they must follow in the delegation prompt.
 - Don't run more parallel agents than you can review. Throughput gains are real;
   so is error compounding. At human pace, mistakes surface slowly. With many
   agents running unsupervised, small errors compound faster than you can catch them.
@@ -98,6 +101,10 @@
 - Growing too long? Split rules into `.claude/rules/*.md`. A rule with a `paths:` glob
   loads only when Claude reads a matching file — modular, and you don't pay context for
   it until it's relevant.
+- Auto memory (on by default, v2.1.59+) is a second memory system Claude maintains itself
+  in `~/.claude/projects/<project>/memory/` — build commands, debugging insights, preferences;
+  the first 200 lines (or 25KB) of `MEMORY.md` load each session. It complements the CLAUDE.md
+  you curate; review what it records and toggle it via `/memory`.
 
 ## Verification Mandate
 
@@ -187,3 +194,6 @@
 <!-- @README.md -->
 <!-- @docs/architecture.md -->
 <!-- @~/.claude/CLAUDE.md  (personal global preferences) -->
+
+Claude Code reads CLAUDE.md, **not** AGENTS.md. If your repo already uses AGENTS.md, don't
+maintain two files — import it here (`@AGENTS.md`) or symlink (`ln -s AGENTS.md CLAUDE.md`).
