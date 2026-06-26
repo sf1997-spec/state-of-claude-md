@@ -1,5 +1,5 @@
  # CLAUDE.md — Universal Best-Practice Template
-# Edition 2026-06-18 | Synthesised from Anthropic's official docs and a watchlist of
+# Edition 2026-06-26 | Synthesised from Anthropic's official docs and a watchlist of
 # practitioner sources, with every technical claim verified against the docs.
 #
 # HOW TO USE
@@ -16,8 +16,10 @@
 # 7. Commit to git so your team benefits. Use CLAUDE.local.md for personal
 #    overrides (add to .gitignore).
 # 8. Treat this file like code: prune when things go wrong; add a line the moment you'd
-#    otherwise repeat yourself — Claude makes the same mistake twice, a review catches
-#    what it should've known, or a new teammate would need the same context.
+#    otherwise repeat yourself — same mistake twice, a review catches what it should've
+#    known, or a new teammate would need the context. If Claude keeps breaking a rule
+#    that IS written here, the file is too long and the rule is lost — prune it, or
+#    convert that rule to a hook.
 # 9. <!-- HTML comments --> are stripped before this file loads — free for
 #    maintainer notes; the '#' lines and prose above are not, so keep them lean.
 
@@ -79,9 +81,10 @@
 - If you've been corrected twice on the same issue: stop, `/clear`, restart with a
   better prompt that incorporates what you learned. Persisting past two failures
   is slower than resetting.
-- Recover instead of fighting a bad path: `/rewind` (or double-`Esc` on an empty
-  prompt) rolls back code and/or conversation to a checkpoint. Use `/btw` for
-  throwaway questions you don't want entering the session's history.
+- Recover instead of fighting a bad path: `/rewind` (or double-`Esc` on an empty prompt)
+  rolls back code and/or conversation to a checkpoint — but checkpoints cover only Claude's
+  own edits, so they're no substitute for git. Use `/btw` for throwaway questions you don't
+  want entering the session's history.
 - `/compact Focus on [X]` — be explicit about what to preserve; don't let
   auto-compaction decide unguided. You can also bake this into CLAUDE.md (e.g. "When
   compacting, always preserve the list of modified files and any test commands") so it
@@ -101,10 +104,11 @@
 - Growing too long? Split rules into `.claude/rules/*.md`. A rule with a `paths:` glob
   loads only when Claude reads a matching file — modular, and you don't pay context for
   it until it's relevant.
-- Auto memory (on by default, v2.1.59+) is a second memory system Claude maintains itself
-  in `~/.claude/projects/<project>/memory/` — build commands, debugging insights, preferences;
-  the first 200 lines (or 25KB) of `MEMORY.md` load each session. It complements the CLAUDE.md
-  you curate; review what it records and toggle it via `/memory`.
+- Auto memory (on by default, v2.1.59+): a second system Claude maintains in
+  `~/.claude/projects/<project>/memory/` — the first 200 lines (or 25KB) of `MEMORY.md`
+  load each session. It complements the CLAUDE.md you curate; review it and toggle via
+  `/memory`. Asking Claude to "remember" X saves to auto memory by default — say "add
+  this to CLAUDE.md" when you want it curated here instead.
 
 ## Verification Mandate
 
@@ -134,14 +138,10 @@
 
 ## Decision Log
 
-- Record non-obvious decisions and their side-effects in a git-tracked log (e.g.
-  `docs/decisions.md` or ADR files). A recorded decision that omits its consequences
-  is still a gap.
-- This applies especially to: architectural choices, deliberate trade-offs,
-  features removed or deferred, and anything where "why didn't we do X?" will be
-  a reasonable question in three months.
-- If a decision silently affects other parts of the system, record those side-effects
-  explicitly — not just the decision itself.
+- Record non-obvious decisions in a git-tracked log (e.g. `docs/decisions.md` or ADR
+  files) — architectural choices, deliberate trade-offs, anything deferred or removed,
+  and any "why didn't we do X?" a future reader will ask. Always capture the
+  side-effects too: a decision logged without its consequences is still a gap.
 
 ---
 

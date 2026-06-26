@@ -1,5 +1,49 @@
 [
   {
+    "edition": 4,
+    "run_id": "2026-06-26",
+    "date": "2026-06-26",
+    "summary": "Three docs-verified refinements to existing guidance: the 'over-specified CLAUDE.md' self-diagnostic (if Claude keeps breaking a written rule, the file is too long and the rule is lost — prune or convert to a hook), the auto-memory 'remember' gotcha (a bare 'remember X' saves to auto memory, not CLAUDE.md), and the checkpoint caveat (/rewind covers only Claude's own edits, not a git substitute). Decision Log condensed to stay under the 200-line budget. Practitioner sources quiet or single-source.",
+    "sources_checked": 12,
+    "sources_unreachable": ["bluesky-developer-community"],
+    "candidates_evaluated": 38,
+    "contested": 0,
+    "changes": [
+      {
+        "type": "modified",
+        "item": "Authoring guidance now carries the docs' named failure pattern: if Claude keeps breaking a rule that IS written in CLAUDE.md, the file is probably too long and the rule is lost in the noise — prune it, or convert that rule to a hook.",
+        "rationale": "New 'over-specified CLAUDE.md' / 'avoid common failure patterns' material in the official best-practices docs, corroborated by the 451-point HN 'Daily Driver' write-up that gives the same prune-ruthlessly advice.",
+        "sources": ["anthropic-official-docs", "hacker-news"]
+      },
+      {
+        "type": "modified",
+        "item": "Auto-memory line now names the gotcha: asking Claude to 'remember' something saves it to auto memory by default — say 'add this to CLAUDE.md' (or edit via /memory) when you want it curated in the file instead.",
+        "rationale": "The memory docs state this explicitly (the 'always use pnpm, not npm' example saves to auto memory). It's a footgun every user hits, so the template should name it.",
+        "sources": ["anthropic-official-docs"]
+      },
+      {
+        "type": "modified",
+        "item": "Recovery line now warns that /rewind checkpoints cover only Claude's own edits, not external processes, so they are no substitute for git.",
+        "rationale": "The best-practices checkpoints section states this verbatim ('Checkpoints only track changes made by Claude... This isn't a replacement for git'); prevents over-trusting /rewind as version control.",
+        "sources": ["anthropic-official-docs"]
+      },
+      {
+        "type": "modified",
+        "item": "Decision Log section condensed from three bullets to one (substance preserved: log non-obvious decisions and their side-effects).",
+        "rationale": "Budget displacement, not an evidence change — the lowest-sourced section was tightened to absorb this edition's additions and keep the file under its own 200-line target. Dogfoods the pruning discipline added in the same edition.",
+        "sources": []
+      }
+    ],
+    "excluded": 1,
+    "excluded_detail": [
+      {
+        "item": "Undocumented source-spelunking config from a 326-point HN post (buildingbetter.tech): hook keys once/async/asyncRewake; skill frontmatter model:/effort:/hooks:/shell:; agent frontmatter omitClaudeMd/memory:/criticalSystemReminder_EXPERIMENTAL; settings autoMemoryEnabled/autoDreamEnabled.",
+        "reason": "Accuracy gate A1: derived from reading the Claude Code source, not stated in the official docs. None confirmed at code.claude.com, so none ship regardless of HN score."
+      }
+    ],
+    "notes": "Docs-led cycle; the official docs expanded substantially again (new pages: goal, workflows, agent-teams, auto-mode-config, fast-mode; memory and skills sections grown). The accuracy gate passed all 3 shipped claims plus 2 held ones (5/5 verbatim). Verified-but-HELD for budget/altitude (strong fold-in candidates): 'CLAUDE.md is delivered as a user message after the system prompt, so compliance isn't guaranteed' (graduated from provisional — held only because the advisory/enforcement split is already stated); 'custom commands merged into skills' (.claude/commands/x.md == .claude/skills/x/SKILL.md both make /x). Tier-1 verified-but-held as too granular for a universal template: partial compaction ('Summarize from here / up to here' via Esc+Esc); permission eval order deny>ask>allow + shell-operator awareness; hook exit-code 2 blocks vs exit 1 non-blocking; InstructionsLoaded hook; claudeMdExcludes; CLAUDE_CODE_NEW_INIT=1 interactive /init; skill-description 1,536-char cap / 1%-of-context listing budget / 5k-25k post-compaction skill re-attachment; respondToBashCommands shell-mode auto-respond (v2.1.186); autoCompactEnabled; import backtick-to-not-import + 4-hop max depth; CLAUDE.local.md per-worktree + import-from-home. Practitioner sources: Addy Osmani published 3 in-window pieces (tier review by blast radius, require evidence before review, agents rewrite test assertions, ~4x code/~12% value, 'you are the GIL') — held as single-Tier-2/PROVISIONAL; obra/superpowers v6.0.x (deliver diffs/briefs as files, plan Global Constraints + per-task Interfaces, .git/ is protected so scratch moved to .superpowers/sdd/, AGENTS.md symlinked to CLAUDE.md, unified task-reviewer, forge-neutral finishing skill) — orchestration-specific, held; Matt Pocock skills repo v1.0.1 (model- vs user-invoked, 'leading word' descriptions, content hierarchy/pruning, .agents->.claude symlink) — skill-authoring, held; Nick Nisi (attention is the multi-agent bottleneck; hook events unreliable as a single source of truth) — held; Simon Willison (Seatbelt/Bubblewrap local sandboxing; unsandboxed-agent prompt-injection risk) — held; knightli (Claude Code is more usage-intensive than chat; third-party codebase-memory MCP) — Tier 3 held. Tier-3 corroboration: Stanford CS336 CLAUDE.md (503 pts, SHOULD/SHOULD-NOT behavioral lists) and arps18 'Daily Driver' (451 pts) — the latter corroborated the shipped pruning diagnostic. forrestchang/karpathy CLAUDE.md core four unchanged since 2026-01-27. Peter Steinberger blog dormant (joined OpenAI; substack 404). Bluesky unreachable."
+  },
+  {
     "edition": 3,
     "run_id": "2026-06-18",
     "date": "2026-06-18",

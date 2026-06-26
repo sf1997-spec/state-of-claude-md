@@ -31,8 +31,8 @@
         "https://code.claude.com/docs/en/permissions",
         "https://code.claude.com/docs/en/interactive-mode"
       ],
-      "last_checked": "2026-06-18",
-      "last_changed": "2026-06-18"
+      "last_checked": "2026-06-26",
+      "last_changed": "2026-06-26"
     },
     {
       "id": "simon-willison",
@@ -55,8 +55,8 @@
         "prompt"
       ],
       "notes": "High independence — Willison forms views from direct use, rarely from secondary sources. Treat observations about what works/doesn't as strong Tier 2 signal even without explicit sourcing.",
-      "last_checked": "2026-06-18",
-      "last_changed": "2026-06-03"
+      "last_checked": "2026-06-26",
+      "last_changed": "2026-06-11"
     },
     {
       "id": "forrest-chang-karpathy-skills",
@@ -78,7 +78,7 @@
         "stars_approx": 54000,
         "tier_multiplier": 1.2
       },
-      "last_checked": "2026-06-18",
+      "last_checked": "2026-06-26",
       "last_changed": null
     },
     {
@@ -100,7 +100,7 @@
         "agentic"
       ],
       "notes": "Filter RSS for Claude Code-relevant posts only. Marmelab writes from sustained daily use across multiple projects — treat workflow observations as high-quality Tier 2. Their April 2026 piece is the baseline; look for updates and new posts.",
-      "last_checked": "2026-06-18",
+      "last_checked": "2026-06-26",
       "last_changed": "2026-06-03"
     },
     {
@@ -123,7 +123,7 @@
         "workflow"
       ],
       "notes": "PSPDFKit/OpenClaw founder. Strong signal on AI software development workflow from a shipping-product perspective. Check both blog and Substack — content sometimes appears on one and not the other. In 2026-06-03 run, output was primarily about Trimmy tool and mcporter — no direct CLAUDE.md guidance found.",
-      "last_checked": "2026-06-18",
+      "last_checked": "2026-06-26",
       "last_changed": null
     },
     {
@@ -147,7 +147,7 @@
         "parallel"
       ],
       "notes": "Source of the 'human bottleneck as feature' observation re: parallel agents. Check blog for long-form; Bluesky for shorter observations that may not make it to a post.",
-      "last_checked": "2026-06-18",
+      "last_checked": "2026-06-26",
       "last_changed": "2026-06-18"
     },
     {
@@ -169,8 +169,8 @@
         "agent"
       ],
       "notes": "Creator of the reject-vibe-coding skills approach and TDD/engineering-constraints pattern for Claude Code. YouTube titles are often enough to identify relevance without watching; fetch video descriptions for detail. Skills repo hit 68k stars in 90 days — high signal source.",
-      "last_checked": "2026-06-18",
-      "last_changed": "2026-06-03"
+      "last_checked": "2026-06-26",
+      "last_changed": "2026-06-17"
     },
     {
       "id": "obra-superpowers",
@@ -196,7 +196,7 @@
         "stars_approx": 150000,
         "tier_multiplier": 1.2
       },
-      "last_checked": "2026-06-18",
+      "last_checked": "2026-06-26",
       "last_changed": "2026-06-18"
     },
     {
@@ -217,7 +217,7 @@
         "skills"
       ],
       "notes": "Has written specifically about Claude Skills. Smaller volume but high relevance when he does publish on this topic.",
-      "last_checked": "2026-06-18",
+      "last_checked": "2026-06-26",
       "last_changed": "2026-06-03"
     },
     {
@@ -262,8 +262,8 @@
       ],
       "min_score_threshold": 50,
       "notes": "Use Algolia HN search API — free, no auth required. Filter for stories (not comments) above the score threshold. High-scoring HN posts about Claude Code are reliable corroborating evidence for Tier 2 claims. Also watch top comments on relevant posts for emerging patterns.",
-      "last_checked": "2026-06-18",
-      "last_changed": "2026-06-18"
+      "last_checked": "2026-06-26",
+      "last_changed": "2026-06-26"
     },
     {
       "id": "reddit-claudeai",
@@ -307,7 +307,7 @@
         "workflow"
       ],
       "notes": "Best-effort: attempt on each run, log quietly if unreachable, do not abort. The searchPosts endpoint now requires auth intermittently. Primary value is catching Tier 2 sources (Willison, Osmani, etc.) posting here before their blog — cross-reference authors against bluesky_handle fields in Tier 2 entries. 2026-06-03 run: 403 Forbidden from sandbox IP.",
-      "last_checked": "2026-06-18",
+      "last_checked": "2026-06-26",
       "last_changed": null
     },
     {
@@ -329,8 +329,8 @@
         "workflow"
       ],
       "notes": "Has produced several strong synthesis posts on Claude Code including the Karpathy CLAUDE.md analysis. Treat as Tier 3 but with relatively high signal quality for that tier — useful for corroboration and for surfacing community discussions worth investigating.",
-      "last_checked": "2026-06-18",
-      "last_changed": "2026-06-08"
+      "last_checked": "2026-06-26",
+      "last_changed": "2026-06-22"
     }
   ],
   "verification_targets": {
