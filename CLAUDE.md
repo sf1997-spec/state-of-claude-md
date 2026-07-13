@@ -1,5 +1,5 @@
  # CLAUDE.md — Universal Best-Practice Template
-# Edition 2026-06-26 | Synthesised from Anthropic's official docs and a watchlist of
+# Edition 2026-07-13 | Synthesised from Anthropic's official docs and a watchlist of
 # practitioner sources, with every technical claim verified against the docs.
 #
 # HOW TO USE
@@ -19,7 +19,8 @@
 #    otherwise repeat yourself — same mistake twice, a review catches what it should've
 #    known, or a new teammate would need the context. If Claude keeps breaking a rule
 #    that IS written here, the file is too long and the rule is lost — prune it, or
-#    convert that rule to a hook.
+#    convert that rule to a hook. Run /doctor (alias /checkup) to audit hygiene — it dedupes
+#    local vs checked-in CLAUDE.md, flags derivable content, and lists unused skills by context cost.
 # 9. <!-- HTML comments --> are stripped before this file loads — free for
 #    maintainer notes; the '#' lines and prose above are not, so keep them lean.
 
@@ -81,21 +82,18 @@
 - If you've been corrected twice on the same issue: stop, `/clear`, restart with a
   better prompt that incorporates what you learned. Persisting past two failures
   is slower than resetting.
-- Recover instead of fighting a bad path: `/rewind` (or double-`Esc` on an empty prompt)
-  rolls back code and/or conversation to a checkpoint — but checkpoints cover only Claude's
-  own edits, so they're no substitute for git. Use `/btw` for throwaway questions you don't
-  want entering the session's history.
-- `/compact Focus on [X]` — be explicit about what to preserve; don't let
-  auto-compaction decide unguided. You can also bake this into CLAUDE.md (e.g. "When
-  compacting, always preserve the list of modified files and any test commands") so it
-  survives every summarisation. The project-root CLAUDE.md re-injects after /compact;
-  nested CLAUDE.md files and chat-only instructions don't, so keep must-survive rules in
-  the root file.
-- Use subagents for exploration that reads many files — the research stays in a
-  separate context window and won't pollute the main session. Scope each one narrowly.
-  Most subagents (custom and built-in) inherit your full CLAUDE.md/memory hierarchy, but
-  the built-in Explore and Plan agents skip it (and git status) to stay fast — so restate
-  any rule they must follow in the delegation prompt.
+- Recover instead of fighting a bad path: `/rewind` (or double-`Esc` on an empty prompt) rolls
+  back code and/or conversation — but checkpoints cover only Claude's own edits, so they're no
+  substitute for git. Use `/btw` for throwaway questions you don't want in session history.
+- `/compact Focus on [X]` — be explicit about what to preserve; don't let auto-compaction
+  decide unguided. Bake it into CLAUDE.md (e.g. "when compacting, always preserve the list of
+  modified files and any test commands") so it survives every summarisation. The project-root
+  CLAUDE.md re-injects after /compact; nested files and chat-only instructions don't — keep
+  must-survive rules in the root file.
+- Use subagents for exploration that reads many files — the research stays in a separate
+  context window and won't pollute the main session; scope each narrowly. Most subagents
+  inherit your full CLAUDE.md/memory hierarchy, but the built-in Explore and Plan agents skip
+  it (and git status) — so restate any rule they must follow in the delegation prompt.
 - Don't run more parallel agents than you can review. Throughput gains are real;
   so is error compounding. At human pace, mistakes surface slowly. With many
   agents running unsupervised, small errors compound faster than you can catch them.
@@ -104,11 +102,10 @@
 - Growing too long? Split rules into `.claude/rules/*.md`. A rule with a `paths:` glob
   loads only when Claude reads a matching file — modular, and you don't pay context for
   it until it's relevant.
-- Auto memory (on by default, v2.1.59+): a second system Claude maintains in
-  `~/.claude/projects/<project>/memory/` — the first 200 lines (or 25KB) of `MEMORY.md`
-  load each session. It complements the CLAUDE.md you curate; review it and toggle via
-  `/memory`. Asking Claude to "remember" X saves to auto memory by default — say "add
-  this to CLAUDE.md" when you want it curated here instead.
+- Auto memory (on by default, v2.1.59+): a second store Claude maintains in
+  `~/.claude/projects/<project>/memory/` — the first 200 lines (or 25KB) of `MEMORY.md` load
+  each session. It complements this file; review and toggle via `/memory`. Asking Claude to
+  "remember" X saves there by default — say "add this to CLAUDE.md" to curate it here instead.
 
 ## Verification Mandate
 
@@ -124,6 +121,8 @@
 - Before declaring done, have a fresh subagent review the diff against the
   requirements — it sees only the change, not the reasoning behind it. Tell it to flag
   only gaps affecting correctness or stated requirements, or it will invent work.
+- Scrutinise agent-written tests: an assertion that just mirrors the code, or was edited to
+  match new, broken behaviour, passes by construction and proves nothing — read test diffs closely.
 
 ## Safety Rails
 

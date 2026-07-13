@@ -1,5 +1,38 @@
 [
   {
+    "edition": 5,
+    "run_id": "2026-07-13",
+    "date": "2026-07-13",
+    "summary": "Two changes. Added the docs-verified /doctor (alias /checkup) CLAUDE.md-hygiene tool (v2.1.205) — it dedupes local vs checked-in CLAUDE.md, proposes trimming content Claude could derive from the codebase, and surfaces unused skills/plugins by context cost — a natural companion to Edition 4's over-specified-CLAUDE.md diagnostic. Added a cross-validated anti-pattern: agent-written tests whose assertions merely mirror the code (or are edited to match new, broken behaviour) pass by construction and prove nothing. Four verbose bullets tightened to hold the file under budget; one tightening drops the now-stale 'to stay fast' rationale for Explore/Plan (the Explore agent no longer runs on Haiku).",
+    "sources_checked": 12,
+    "sources_unreachable": ["bluesky-developer-community"],
+    "candidates_evaluated": 41,
+    "contested": 0,
+    "changes": [
+      {
+        "type": "added",
+        "item": "Run /doctor (alias /checkup) to audit CLAUDE.md hygiene: it deduplicates local vs checked-in CLAUDE.md files, proposes trimming content Claude could derive from the codebase, and lists unused skills/MCP servers/plugins against their context cost — reporting findings and asking confirmation before changing anything.",
+        "rationale": "New in the official docs (What's New w28, v2.1.205; /checkup alias verified verbatim). Directly operationalises the specimen's lean-file / prune-what's-derivable thesis, so it belongs beside the over-specified-CLAUDE.md diagnostic added in Edition 4.",
+        "sources": ["anthropic-official-docs"]
+      },
+      {
+        "type": "added",
+        "item": "Scrutinise agent-written tests: an assertion that just mirrors the code, or was quietly edited to match new, broken behaviour, passes by construction and proves nothing — read test diffs more closely than production code.",
+        "rationale": "Anti-pattern corroborated by two independent Tier-2 sources: Addy Osmani ('the agent changes behavior, then fixes the test by rewriting the assertion to match the new, broken behavior') and Matt Pocock's new tautological-test rule ('a test whose assertion is recomputed the way the code computes it passes by construction and gives zero confidence'). Two Tier-2 sources clears the anti-pattern bar for IN.",
+        "sources": ["addy-osmani", "matt-pocock"]
+      },
+      {
+        "type": "modified",
+        "item": "Four Session & Context bullets (/rewind, /compact, subagents, auto memory) condensed to absorb this edition's additions and keep the file under its 200-line budget (now 198). Substance preserved; the subagents bullet also drops 'to stay fast' since the built-in Explore agent now inherits the session model (capped at Opus) rather than running on Haiku.",
+        "rationale": "Budget displacement plus a free accuracy touch-up (docs: Explore no longer runs on Haiku), not an evidence change. Dogfoods the pruning discipline the specimen teaches.",
+        "sources": ["anthropic-official-docs"]
+      }
+    ],
+    "excluded": 0,
+    "excluded_detail": [],
+    "notes": "Docs-led cycle. The two post-cutoff What's-New digests (w27: Jun 29-Jul 3 = v2.1.195-201; w28: Jul 6-10 = v2.1.202-206) drove the shipped /doctor item. Accuracy gate: /doctor + /checkup confirmed verbatim in What's New w28; no shipped technical claim failed; 0 exclusions. Verified-but-HELD as too granular for a universal template (all Tier-1, all real): subagent persistent memory via `memory` frontmatter (user/project/local scopes, .claude/agent-memory/); subagents run in background by default (v2.1.198) with `background` frontmatter to pin; stacked skill invocations load all leading skills up to 5 (v2.1.197); 'default' permission mode relabeled 'Manual' + `--permission-mode manual` alias (v2.1.200); HTML-comment stripping nuance (preserved inside code blocks, visible via Read); CLAUDE.md delivered as a user message after the system prompt (no strict-compliance guarantee) + --append-system-prompt + InstructionsLoaded hook (held again, same as Ed 3/4 — advisory/enforcement split already stated); CLAUDE_CODE_NEW_INIT interactive /init + /init incorporating AGENTS.md/.cursorrules; @path imports 4-hop max depth + code-span skipping + one-time external-import approval dialog; claudeMd (managed) + claudeMdExcludes settings; autoMemoryDirectory + CLAUDE_CODE_DISABLE_AUTO_MEMORY; user-level ~/.claude/rules/ loading before project rules + symlink/brace-expansion support. New docs index pages noted for future watch: goal.md, workflows.md, agent-teams.md, fast-mode.md, context-window.md, how-claude-code-works.md (none contradict the specimen). Practitioner PROVISIONAL (single Tier-2, queued not shipped): Simon Willison — delegate implementation to a cheaper model in a subagent, keep judgment/review in the main loop (Jul 3 + Jul 5, recurring); also review documentation edits first, maintain running plan.md/notes.md, front-load context. Addy Osmani — static-vs-dynamic context boundary (CLAUDE.md = static, loads every turn; skills/RAG = dynamic, on demand), agent = model + harness (10/90) debug the harness first, per-task autonomy levels + explicit run contract, false-parallelism (isolate agents to non-overlapping slices). Matt Pocock skills v1.1.0 — heavy but orchestration-specific (to-spec/to-tickets/wayfinder/grilling, Fowler smell baseline, expand-contract wide refactors); the 'elephant/void' prompting insight (prompt the positive; every declined decision is delegated to the agent's priors) is intriguing but single-source and partly at odds with the specimen's own use of negative rules — held. Quiet: Marmelab (in-window posts not Claude-specific), Peter Steinberger (blog dormant since Feb 14 post-OpenAI; substack 404 — candidate for deprioritisation), Nick Nisi (newest post Fleet, 2026-05-28, out of window), forrestchang/karpathy (core four unchanged since 2026-01-27). HN: zero in-window on-topic stories >50 pts (Stanford CS336 503-pt CLAUDE.md and the 451-pt Daily Driver both fall just outside the 35-day window). knightli (Tier-3, corroborating-only): CLAUDE.md-vs-Memory scope split, PostToolUse Edit|Write hook config, subagent context-isolation, whole-directory SKILL.md copying. Bluesky 403 unreachable (as every prior run)."
+  },
+  {
     "edition": 4,
     "run_id": "2026-06-26",
     "date": "2026-06-26",
