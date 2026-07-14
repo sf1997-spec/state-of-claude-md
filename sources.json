@@ -105,13 +105,13 @@
     },
     {
       "id": "peter-steinberger",
-      "name": "Peter Steinberger — Blog and Newsletter",
+      "name": "Peter Steinberger — Blog (dormant), X, and interviews",
       "tier": 2,
       "status": "active",
       "method": "fetch_page",
       "urls": {
-        "primary": "https://steipete.me",
-        "newsletter": "https://steipete.substack.com"
+        "primary": "https://steipete.me/posts",
+        "x_profile": "https://x.com/steipete"
       },
       "decay_exempt": false,
       "relevance_filter": [
@@ -120,10 +120,11 @@
         "CLAUDE.md",
         "AI coding",
         "agent",
+        "loop engineering",
         "workflow"
       ],
-      "notes": "PSPDFKit/OpenClaw founder. Strong signal on AI software development workflow from a shipping-product perspective. Check both blog and Substack — content sometimes appears on one and not the other. In 2026-06-03 run, output was primarily about Trimmy tool and mcporter — no direct CLAUDE.md guidance found.",
-      "last_checked": "2026-07-13",
+      "notes": "PSPDFKit/OpenClaw founder; joined OpenAI 2026-02. BLOG IS DORMANT for new posts — steipete.me newest is 'OpenClaw, OpenAI and the future' (2026-02-14) and the substack (steipete.substack.com) 404s, so both were dropped as primary channels. His AI-coding signal migrated to X (@steipete — active, incl. the recurring 'stop prompting, design loops' / loop-engineering takes) and to interviews/podcasts (e.g. Pragmatic Engineer 'creator of Clawd', Wantrepreneur Show). X is auth-walled like the ruled-out social sources, so the practical harvest is: (1) a cheap fetch of steipete.me/posts to catch any blog revival, plus (2) a web search each run for recent Steinberger interviews/write-ups. Verified via primary-source check 2026-07-14 after a 'did he start a new blog?' lead — no new blog exists.",
+      "last_checked": "2026-07-14",
       "last_changed": null
     },
     {
